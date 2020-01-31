@@ -7,7 +7,8 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('./client/dist'));
-app.get('/', (req, res) => res.send('Hello World'));
+
+// app.get('/', (req, res) => res.send('Hello World'));
 
 
 app.listen(port, () => console.log(`app listening on port ${port}`));
