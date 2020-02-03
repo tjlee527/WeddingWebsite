@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import TaskContainer from './TaskContainer';
 
 class App extends React.Component {
@@ -10,6 +11,24 @@ class App extends React.Component {
 
     this.toggleTask = this.toggleTask.bind(this);
     this.addNewTask = this.addNewTask.bind(this);
+    this.getAllTasks = this.getAllTasks.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAllTasks();
+  }
+
+  getAllTasks() {
+    $.ajax({
+      type: 'GET',
+      url: '/tasks',
+      success: (response) => {
+        console.log(response);
+      },
+      error: (response) => {
+        console.log(response)
+      }
+    })
   }
 
   toggleTask(id, desc, status) {
