@@ -1,4 +1,6 @@
 import React from 'react';
+import TaskRow from './TaskRow.jsx';
+import AddNewTask from './AddNewTask.jsx';
 
 class TaskContainer extends React.Component {
   constructor(props) {
@@ -8,15 +10,15 @@ class TaskContainer extends React.Component {
   render() {
     return (
       <div className="taskContainer">
+        < AddNewTask addNewTask={this.props.addNewTask}/>
         <h1>Task List</h1>
-        <ul>
-          {/* <li>yes</li> */}
+        <div>
           {this.props.tasks.map((task, index) => {
             return (
-              <li key = {index}>{task[0]}</li>
+              < TaskRow key={index} id={index} task={task} toggleTask={this.props.toggleTask}/>
             )
           })}
-        </ul>
+        </div>
       </div>
     )
   }

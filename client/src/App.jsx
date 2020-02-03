@@ -5,12 +5,41 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [['eat food', false], ['clean room', false], ['wash dishes', false]]
+      tasks: [['eat food', false], ['clean room', true], ['wash dishes', false]]
     }
+
+    this.toggleTask = this.toggleTask.bind(this);
+    this.addNewTask = this.addNewTask.bind(this);
   }
+
+  toggleTask(id, desc, status) {
+    let newStatus = (status === 'false' ? true : false);
+    let newTasks = this.state.tasks.reduce((arr, task) => {
+      arr.push([...task]);
+      return arr;
+    } ,[]);
+
+    newTasks[id] = [desc, newStatus];
+    this.setState({
+      tasks: newTasks
+    })
+  }
+
+  addNewTask(taskDesc) {
+    let newTasks = this.state.tasks.reduce((arr, task) => {
+      arr.push([...task]);
+      return arr;
+    } ,[]);
+
+    newTasks.push([taskDesc, false]);
+    this.setState({
+      tasks: newTasks
+    })
+  }
+
   render(){
     return (
-      <TaskContainer tasks={this.state.tasks}/>
+      <TaskContainer addNewTask={this.addNewTask} toggleTask={this.toggleTask} tasks={this.state.tasks}/>
     )
   }
 }
