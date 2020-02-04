@@ -15,7 +15,7 @@ class TaskContainer extends React.Component {
         <div>
           {this.props.tasks.map((task, index) => {
             return (
-              < TaskRow key={index} id={index} task={task} toggleTask={this.props.toggleTask}/>
+              < TaskRow key={index} id={task._id} task={task} toggleTask={this.props.toggleTask}/>
             )
           })}
         </div>

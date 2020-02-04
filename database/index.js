@@ -12,7 +12,7 @@ db.once('open', function() {
 
 const taskSchema = new Schema({
   task: String,
-  status: Boolean
+  status: String
 });
 
 const Tasks = mongoose.model('Task', taskSchema);

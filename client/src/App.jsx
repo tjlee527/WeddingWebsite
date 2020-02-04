@@ -5,8 +5,11 @@ import TaskContainer from './TaskContainer';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   tasks: [['eat food', false], ['clean room', true], ['wash dishes', false]]
+    // }
     this.state = {
-      tasks: [['eat food', false], ['clean room', true], ['wash dishes', false]]
+      tasks: []
     }
 
     this.toggleTask = this.toggleTask.bind(this);
@@ -24,6 +27,11 @@ class App extends React.Component {
       url: '/tasks',
       success: (response) => {
         console.log(response);
+        this.setState((prevState) => {
+          return ({
+            tasks: response
+          })
+        })
       },
       error: (response) => {
         console.log(response)
@@ -32,15 +40,26 @@ class App extends React.Component {
   }
 
   toggleTask(id, desc, status) {
-    let newStatus = (status === 'false' ? true : false);
-    let newTasks = this.state.tasks.reduce((arr, task) => {
-      arr.push([...task]);
-      return arr;
-    } ,[]);
+    // console.log(typeof status)
+    let newStatus = (status == 'false' ? true : false);
+    let newTaskObj = {
+      id: id,
+      task: desc,
+      status: newStatus
+    }
+    // console.log(newTaskObj);
 
-    newTasks[id] = [desc, newStatus];
-    this.setState({
-      tasks: newTasks
+    $.ajax({
+      type: 'PUT',
+      url: `/tasks/item/${id}`,
+      data: newTaskObj,
+      success: (response) => {
+        // console.log(response);
+        this.getAllTasks();
+      },
+      error: (response) => {
+        console.log(response)
+      }
     })
   }
 

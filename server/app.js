@@ -31,7 +31,22 @@ app.post('/tasks', (req, res) => {
     }
     res.sendStatus(200);
   })
-})
+});
 
+app.put(`/tasks/item/:id`, (req,res) => {
+  const taskId = req.body.id;
+  const newTaskObj = {
+    _id: req.body.id,
+    task: req.body.task,
+    status: req.body.status
+  }
+
+  Tasks.findOneAndUpdate( {_id: taskId}, req.body, (err, doc) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  })
+})
 
 app.listen(port, () => console.log(`app listening on port ${port}`));
