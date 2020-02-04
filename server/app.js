@@ -45,6 +45,16 @@ app.put(`/tasks/item/:id`, (req,res) => {
     }
     res.sendStatus(200);
   })
+});
+
+app.delete('/tasks/item/:id', (req, res) => {
+  const taskId = req.body.id;
+  Tasks.deleteOne({_id: req.body.id}, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  })
 })
 
 app.listen(port, () => console.log(`app listening on port ${port}`));

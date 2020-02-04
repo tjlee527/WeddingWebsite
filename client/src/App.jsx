@@ -9,8 +9,6 @@ class App extends React.Component {
       tasks: []
     }
 
-    this.toggleTask = this.toggleTask.bind(this);
-    // this.addNewTask = this.addNewTask.bind(this);
     this.getAllTasks = this.getAllTasks.bind(this);
   }
 
@@ -35,32 +33,10 @@ class App extends React.Component {
     })
   }
 
-  toggleTask(id, desc, status) {
-    let newStatus = (status == 'false' ? true : false);
-    let newTaskObj = {
-      id: id,
-      task: desc,
-      status: newStatus
-    }
-
-    $.ajax({
-      type: 'PUT',
-      url: `/tasks/item/${id}`,
-      data: newTaskObj,
-      success: (response) => {
-        this.getAllTasks();
-      },
-      error: (response) => {
-        console.log(response)
-      }
-    })
-  }
-
-
 
   render(){
     return (
-      <TaskContainer getAllTasks={this.getAllTasks} toggleTask={this.toggleTask} tasks={this.state.tasks}/>
+      <TaskContainer getAllTasks={this.getAllTasks} tasks={this.state.tasks}/>
     )
   }
 }

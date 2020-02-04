@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskRow from './TaskRow.jsx';
 import AddNewTask from './AddNewTask.jsx';
+import DeleteTask from './DeleteTask.jsx';
 
 class TaskContainer extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class TaskContainer extends React.Component {
             )
           })}
         </div>
+        <DeleteTask getAllTasks={this.props.getAllTasks} tasks={this.props.tasks}/>
       </div>
     )
   }
