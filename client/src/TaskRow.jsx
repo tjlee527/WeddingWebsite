@@ -1,24 +1,45 @@
 import React from 'react';
+import $ from 'jquery';
 
 class TaskRow extends React.Component {
   constructor(props) {
     super(props);
 
     this.taskClicked = this.taskClicked.bind(this);
+    this.toggleTask = this.toggleTask.bind(this);
   }
 
   taskClicked(event) {
-    // console.log(event.currentTarget);
     let status = event.currentTarget.getAttribute('status');
     let description = event.currentTarget.getAttribute('desc');
     let id = event.currentTarget.getAttribute('id');
-    console.log(status, description, id);
-    this.props.toggleTask(id, description, status)
+    this.toggleTask(id, description, status)
   }
+
+  toggleTask(id, desc, status) {
+    let newStatus = (status == 'false' ? true : false);
+    let newTaskObj = {
+      id: id,
+      task: desc,
+      status: newStatus
+    }
+
+    $.ajax({
+      type: 'PUT',
+      url: `/tasks/item/${id}`,
+      data: newTaskObj,
+      success: (response) => {
+        this.props.getAllTasks();
+      },
+      error: (response) => {
+        console.log(response)
+      }
+    })
+  }
+
 
   render() {
     let done = this.props.task.status;
-    console.log(done)
     let taskDescription = this.props.task.task;
     return (
       <div >

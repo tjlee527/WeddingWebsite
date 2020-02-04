@@ -10,12 +10,12 @@ class TaskContainer extends React.Component {
   render() {
     return (
       <div className="taskContainer">
-        < AddNewTask addNewTask={this.props.addNewTask}/>
+        < AddNewTask getAllTasks={this.props.getAllTasks}/>
         <h1>Task List</h1>
         <div>
           {this.props.tasks.map((task, index) => {
             return (
-              < TaskRow key={index} id={task._id} task={task} toggleTask={this.props.toggleTask}/>
+              < TaskRow key={index} id={task._id} task={task} getAllTasks={this.props.getAllTasks}/>
             )
           })}
         </div>

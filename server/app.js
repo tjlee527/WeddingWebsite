@@ -20,11 +20,9 @@ app.get('/tasks', (req, res) => {
 });
 
 app.post('/tasks', (req, res) => {
-  // console.log(req.body);
-  let desc = req.body.tasks[0];
-  let status = req.body.tasks[1];
+  let desc = req.body.desc;
+  let status = req.body.status;
   let newTask = new Tasks({task: desc, status: status});
-  // console.log(newTask);
   newTask.save((err, doc) => {
     if (err) {
       res.sendStatus(500);

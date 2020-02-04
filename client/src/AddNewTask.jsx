@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 class AddNewTask extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class AddNewTask extends React.Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.addNewTask = this.addNewTask.bind(this);
   }
 
   onInputChange(event) {
@@ -20,9 +22,26 @@ class AddNewTask extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     let newTask = this.state.value;
-    this.props.addNewTask(newTask);
+    this.addNewTask(newTask);
     this.setState({
       value: ''
+    })
+  }
+
+  addNewTask(taskDesc) {
+    $.ajax({
+      type: 'POST',
+      url: '/tasks',
+      data: {
+        desc: taskDesc,
+        status: false
+      },
+      success: (response) => {
+        this.props.getAllTasks();
+      },
+      error: (response) => {
+        console.log(response);
+      }
     })
   }
 
