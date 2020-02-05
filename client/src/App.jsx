@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import TaskContainer from './TaskContainer';
+import Countdown from './Countdown';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,7 +37,11 @@ class App extends React.Component {
 
   render(){
     return (
-      <TaskContainer getAllTasks={this.getAllTasks} tasks={this.state.tasks}/>
+      <div>
+        <Countdown />
+        <br></br>
+        <TaskContainer getAllTasks={this.getAllTasks} tasks={this.state.tasks}/>
+      </div>
     )
   }
 }

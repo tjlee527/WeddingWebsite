@@ -20,6 +20,7 @@ class TaskContainer extends React.Component {
             )
           })}
         </div>
+        <br></br>
         <DeleteTask getAllTasks={this.props.getAllTasks} tasks={this.props.tasks}/>
       </div>
     )
